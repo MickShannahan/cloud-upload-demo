@@ -1,0 +1,17 @@
+{
+  "name": "cloud-upload-demo",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@azure/storage-blob": "^12.17.0",
+    "@bcwdev/auth0provider": "^1.1.0",
+    "parse-multipart": "^1.0.4",
+    "sharp": "^0.33.2"
+  },
+  "main": "src/functions/*.mjs"
+}
