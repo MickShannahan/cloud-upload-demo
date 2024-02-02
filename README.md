@@ -27,13 +27,14 @@ You will need to [create and Azure Cloud Account](https://azure.microsoft.com/en
 [🔗Azure Docs](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/create-subscription#create-a-subscription)
 Azure subscriptions are how you track usage costs, while just having one subscription is nice and keeps things simple you may want to consider multiple subscriptions per client.
 
+![Azure Subscription](assets/SubscriptionsLogo.png)
 ![Create Subscription](assets/AzureCreateSub.png)
 ![Create Subscription](assets/AzureCreateBudget.png)
 
-### Create an Azure Cloud Function App
 
 ### Create an Azure Storage Account
 
+![Azure Storage](assets/StorageLogo.png)
 ![Create Storage Account](assets/StorageAccountBasics.png)
 ![Create Storage Security](assets/StorageAccountSecurity.png)
 
@@ -42,9 +43,20 @@ Azure subscriptions are how you track usage costs, while just having one subscri
 
 ![Create Container](assets//ContainerCreate.png)
 
+
+### Create an Azure Cloud Function App
+
+![Azure Storage](assets/FunctionAppLogo.png)
+![Create Function App](assets/AzureCreateFunction.png)
+
+> ⚠️ *you will need to use the windows os if you want to run the deploy from azure extension. There are other ways to deploy for a linux os that aren't hard, but definitely not as easy as a click of a button*
+
+
 ### Download the Azure Tools Extension
 
-  Download and Log into the Azure tools extension
+  Time to head over to vscode. You might want to create a folder for this project and open vscode there while you are at it.
+
+  Once open download and Log into the Azure tools extension
 
   ![Download Azure Tools](assets/AzureToolsExtension.png)
 

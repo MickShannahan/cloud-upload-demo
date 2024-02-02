@@ -38,26 +38,26 @@ app.http('imageSandwich', {
 
             // Image processing
 
-            const imageBuffer = Buffer.from(file.data)
+        const imageBuffer = Buffer.from(file.data)
 
-            const jpg = await sharp(imageBuffer)
-                                .metadata()
-                                .then(({width, height})=> {
-                                    imageWidth = width
-                                    imageHeight = height
-                                return sharp(imageBuffer)
-                                    .resize(Math.round(width * .25))
-                                    .jpeg({quality: 70, chromaSubsampling: '4:4:4'})
-                                    .toBuffer()
-                                })
+        const jpg = await sharp(imageBuffer)
+                            .metadata()
+                            .then(({width, height})=> {
+                                imageWidth = width
+                                imageHeight = height
+                            return sharp(imageBuffer)
+                                .resize(Math.round(width * .25))
+                                .jpeg({quality: 70, chromaSubsampling: '4:4:4'})
+                                .toBuffer()
+                            })
 
-            const webp = await sharp(imageBuffer)
-                                .metadata()
-                                .then(()=> {
-                                    return sharp(imageBuffer)
-                                    .webp({quality: 20, nearLossless: true})
-                                    .toBuffer()
-                                })
+          const webp = await sharp(imageBuffer)
+                                  .metadata()
+                                  .then(()=> {
+                                      return sharp(imageBuffer)
+                                      .webp({quality: 20, nearLossless: true})
+                                      .toBuffer()
+                                  })
                               
 
 
