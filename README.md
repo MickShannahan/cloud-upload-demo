@@ -6,10 +6,12 @@ While it's simple to add a url for an image to any model of data, that's not typ
 Instead of going through this process for each and every app we build, it's much easier to create a serverless chunk of code that can handle the upload for us that can be used from any of our apps.
 
 ### Cloud functions
-Why cloud functions
+Why cloud functions. cause they are cool.
 
 ### Blob Storage
-What is blob storage?
+What is blob storage? cause it too is cool.
+
+*(sorry just ran out of time to fill this all out)*
 
 
 ## 🔧 Setup and preparation
@@ -27,6 +29,8 @@ Azure subscriptions are how you track usage costs, while just having one subscri
 
 ![Create Subscription](assets/AzureCreateSub.png)
 ![Create Subscription](assets/AzureCreateBudget.png)
+
+### Create an Azure Cloud Function App
 
 ### Create an Azure Storage Account
 
@@ -155,5 +159,34 @@ Account; Allow blob anonymous access Enabled
 
 The last step is to respond with the relevant information. In this case we give them back the url to access the image for any of their needs, the size in kb and the file name. They will need to save this file name if they want to delete this file later.
 
-## 📦 Deploy
+## 📦 Deploy!
 
+Now we are ready to deploy our function app, and use our function from anywhere.
+
+First thing first, if we have not initialized a git repo and committed, we should do that now!
+
+Azure's extension makes the deployment super easy. Like just a few mouse clicks from VScode easy. Head over to the extension and expand out your function app. It will be under a could drop downs for Subscriptions and resource groups.
+
+Right click on the function app ⚡and set the deployment source as the local git. This connects your git repo to the function app in Azure
+
+![Configure Git](assets/AzureConfigure.png)
+
+Expand the function app and right click on the `Application Settings`, then `Upload Local Settings`. This takes the local.settings.json and uploads it's values to Azure for our app to use.
+
+Right click on the function app ⚡ again, then `Deploy to function app`. That's it. The function app is ready to use. You can head over to your function app on the Azure portal to see your function.
+
+![Azure Live Functions](assets/AzureFunctionsLive.png)
+
+> 💬 It is super easy to deploy but a small note, I have had mixed results with this deployment being successful. I have clicked it once and had it work perfectly, I have done it 5 times, and fail 4 out of the 5. There is an output log that will tell you if there are issues with the project but seems like sometimes it just fails. You might just want to click deploy again if it didn't work.
+
+## 🤷 What is next?
+
+### 🚮 Deleting
+
+Well there are a few things to do more, one is make sure users can delete images from blob storage.  This is more or less the exact same process from before, but without all the set up steps. Take a look at  the function to delete an image and you will notice many similarities.
+
+### 📸 Improvements with Sharp
+
+Sharp is a library focused on image processing, it makes many common image processing tasks like re-sizing and compressing very easy.
+
+Often time when user's upload their images, we don't want / need to store the image they uploaded in it's full quality. If someone uploads a profile picture, it could be a very high resolution image from their phone, but it's going to be displayed on a tiny fraction of the screen.  Even images that are going to be on larger display could be shrunk with no noticeable quality loss.
