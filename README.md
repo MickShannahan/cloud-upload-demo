@@ -10,6 +10,7 @@ Why cloud functions. cause they are cool.
 
 ### Blob Storage
 What is blob storage? cause it too is cool.
+[A little about blobs](https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json#about-block-blobs)
 
 *(sorry just ran out of time to fill this all out)*
 

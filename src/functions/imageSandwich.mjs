@@ -40,24 +40,23 @@ app.http('imageSandwich', {
 
         const imageBuffer = Buffer.from(file.data)
 
-        const jpg = await sharp(imageBuffer)
+        const shrink = await sharp(imageBuffer)
                             .metadata()
                             .then(({width, height})=> {
                                 imageWidth = width
                                 imageHeight = height
                             return sharp(imageBuffer)
-                                .resize(Math.round(width * .25))
-                                .jpeg({quality: 70, chromaSubsampling: '4:4:4'})
-                                .toBuffer()
-                            })
+                            .toBuffer()
+                          })
 
-          const webp = await sharp(imageBuffer)
-                                  .metadata()
-                                  .then(()=> {
-                                      return sharp(imageBuffer)
-                                      .webp({quality: 20, nearLossless: true})
-                                      .toBuffer()
-                                  })
+        const jpg = await sharp(shrink)
+                          .resize(Math.round(imageWidth * .25))
+                          .jpeg({quality: 70, chromaSubsampling: '4:4:4'})
+                          .toBuffer()
+
+        const webp = await sharp(imageBuffer)
+                                .webp({quality: 20, nearLossless: true})
+                                .toBuffer()
                               
 
 
