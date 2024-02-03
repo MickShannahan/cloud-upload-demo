@@ -40,17 +40,14 @@ app.http('imageSandwich', {
 
         const imageBuffer = Buffer.from(file.data)
 
-        const shrink = await sharp(imageBuffer)
-                            .metadata()
-                            .then(({width, height})=> {
-                                imageWidth = width
-                                imageHeight = height
-                            return sharp(imageBuffer)
-                            .toBuffer()
-                          })
+        const {width, height} = await sharp(imageBuffer).metadata()
+        imageWidth = width
+        imageHeight = height
 
-        const jpg = await sharp(shrink)
+        const shrink = await sharp(imageBuffer)
                           .resize(Math.round(imageWidth * .25))
+
+        const jpg = await shrink
                           .jpeg({quality: 70, chromaSubsampling: '4:4:4'})
                           .toBuffer()
 
@@ -61,7 +58,7 @@ app.http('imageSandwich', {
 
 
         const blobStorage = BlobServiceClient.fromConnectionString(process.env.AzureWebJobsStorage)
-        const container = blobStorage.getContainerClient('images')
+        const container = blobStorage.getContainerClient('demo')
 
         const folder = userInfo.id
         const blockBlob = container.getBlockBlobClient(`${folder}/${fileName}`)
