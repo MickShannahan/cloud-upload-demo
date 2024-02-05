@@ -5,14 +5,11 @@ While it's simple to add a url for an image to any model of data, that's not typ
 
 Instead of going through this process for each and every app we build, it's much easier to create a serverless chunk of code that can handle the upload for us that can be used from any of our apps.
 
-### Cloud functions
-Why cloud functions. cause they are cool.
 
 ### Blob Storage
-What is blob storage? cause it too is cool.
+What is blob storage? 
 [A little about blobs](https://learn.microsoft.com/en-us/rest/api/storageservices/understanding-block-blobs--append-blobs--and-page-blobs?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json#about-block-blobs)
 
-*(sorry just ran out of time to fill this all out)*
 
 
 ## 🔧 Setup and preparation
