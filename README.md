@@ -1,9 +1,14 @@
 # Codeworks Azure 🌩️ cloud function for file uploading
 
 ## A little about the technology
-While it's simple to add a url for an image to any model of data, that's not typically how web-apps work, if you're curious that we knew that we did, but file upload itself isn't the quickest thing to implement and can add a lot of dev time to our applications. We need a file storage somewhere else then our document or table databases, we need to configure access to it so our client can upload to it, and typically some way to compress the data the user is trying to upload so we can minimize our costs.
+While it's simple to add a url for an image to any model of data, that's not typically how web-apps work. If you're curious on whether we knew that we did, but file upload itself isn't the quickest thing to implement and can add a lot of dev time to our applications. We need a file storage somewhere else then our document or table databases, we need to configure access to it so our client can upload to it, and typically some way to compress the data the user is trying to upload so we can minimize our costs.
 
-Instead of going through this process for each and every app we build, it's much easier to create a serverless chunk of code that can handle the upload for us that can be used from any of our apps.
+Instead of going through this process for each and every app we build, it's much more efficient to create a serverless function that can handle this style of upload for us that can be used from any of our apps.
+
+
+### Enter Cloud Functions
+
+Cloud functions are chunks of code stored in the cloud. You trigger it, it runs. Often these functions are triggered by events like HTTP request, much like an api. The main benefit of using cloud functions is that we get to hand off all of the infrastructure to our cloud provider, so all we have to do is write the code we want our function to run, and that's it.
 
 
 ### Blob Storage
@@ -17,7 +22,7 @@ What is blob storage?
 You will need to complete these before you can begin.
 
 ### Azure Cloud Account
-⚠️`While there are many free things you can do with Azure, and Azure offers credits for new accounts, this will not be free. Depending on your use case though It can be very very cheap (My personal use costs me less than $1 a month)`
+> ⚠️*While there are many free things you can do with Azure, and Azure offers credits for new accounts, this will not be free. Depending on your use case though It can be very very cheap (My personal use costs me less than $1 a month)*
 
 You will need to [create and Azure Cloud Account](https://azure.microsoft.com/en-us/free/). If you want to sign up using github that is recommended. You will also need to make sure you have a [payment method set up](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/change-credit-card).
 
@@ -110,6 +115,8 @@ One last thing we are going to do before we move on is update the code here to u
 Before we move onto uploading we want to install some node modules to this function.
 Jump into your console and import the following packages
 
+#### install node packages
+
   - `@azure/storage-blob` lets us create and upload "blobs" to our storage account
   -  `@bcwdev/auth0provider` Allows us to implement user authentication
   -  `parse-multipart` Offers a quick solution to pulling the file data from our request
@@ -185,7 +192,7 @@ Expand the function app and right click on the `Application Settings`, then `Upl
 
 Right click on the function app ⚡ again, then `Deploy to function app`. That's it. The function app is ready to use. You can head over to your function app on the Azure portal to see your function.
 
-![Azure Live Functions](assets/AzureFunctionsLive.png)
+![Azure Live Functions](assets/FunctionsLiveOnAzure.png)
 
 > 💬 It is super easy to deploy but a small note, I have had mixed results with this deployment being successful. I have clicked it once and had it work perfectly, I have done it 5 times, and fail 4 out of the 5. There is an output log that will tell you if there are issues with the project but seems like sometimes it just fails. You might just want to click deploy again if it didn't work.
 
@@ -195,8 +202,18 @@ Right click on the function app ⚡ again, then `Deploy to function app`. That's
 
 Well there are a few things to do more, one is make sure users can delete images from blob storage.  This is more or less the exact same process from before, but without all the set up steps. Take a look at  the function to delete an image and you will notice many similarities.
 
+We don't need to worry about auth in this case since everything is organized into folders with the user's `id`.
+
 ### 📸 Improvements with Sharp
 
 Sharp is a library focused on image processing, it makes many common image processing tasks like re-sizing and compressing very easy.
 
-Often time when user's upload their images, we don't want / need to store the image they uploaded in it's full quality. If someone uploads a profile picture, it could be a very high resolution image from their phone, but it's going to be displayed on a tiny fraction of the screen.  Even images that are going to be on larger display could be shrunk with no noticeable quality loss.
+We rarely need or want to save the full resolution image a user sends to us. Consider a profile picture taken from someones phone. These are usually very high resolution, and are going to be displayed in little bubbles in our app, fractions of the original image size.
+
+This project has an extra function `sharpUpload` that includes a couple steps taken to process the images uploaded.
+
+#### webp
+
+Webp is a modern format designed for the web. If at all possible you should be using webp when ever you can. It is flexible enough for lossy and lossless compression, often times cutting image sizes in half.
+
+[Sharp Docs](https://sharp.pixelplumbing.com/)

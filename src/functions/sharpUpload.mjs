@@ -4,7 +4,7 @@ import  multipart from 'parse-multipart'
 import { BlobServiceClient } from '@azure/storage-blob';
 import sharp from 'sharp'
 
-app.http('imageSandwich', {
+app.http('sharpUpload', {
     methods: ['POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
